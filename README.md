@@ -1,17 +1,39 @@
-# photo_of_the_day_prosvirov
+# Лабораторная работа №8. Асинхронность в Dart и Flutter. Создание приложения «Фото дня»
+***Цель работы: Понять концепцию асинхронного программирования — изучить Future, async/await в Dart. Применить эти знания во Flutter-приложении, которое загружает случайные фотографии из интернета.***
+***
+## Работу выполнил: студент третьего курса группы ИСП-241 Просвиров Дмитрий Анатольевич 
+***
+## Стек и версии:
+1. `Flutter 3.41.8`
+2. `Dart SDK version: 3.11.5`
+3. Платформа: `Web` (`Chrome`)
+4. Пакет: `http`
+***
+## Скриншот приложения
 
-A new Flutter project.
+![приложение](/img/img/final.png)
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+***
+## Как запустить 
+Запуск
+1. `git clone <url>`
+2. `cd photo_of_the_day`
+3. `flutter pub get`
+4. `flutter run -d chrome`
+***
+## Что изучили:
+1. Когда приложение делает запрос к серверу или читает файл — это занимает время. Если ждать синхронно — интерфейс зависнет, пользователь не сможет ничего делать. Если ждать асинхронно — приложение остаётся живым.
+2. `Future<T>` — это объект, который обещает вернуть значение типа T в будущем. Сейчас результата нет, но он появится позже.
+3. `Future<void>` — функция асинхронная, но ничего не возвращает. `void` как обычно означает «нет возвращаемого значения».
+4. Для HTTP-запросов используем пакет `http` с `pub.dev` — официальный реестр пакетов `Dart` и `Flutter` (аналог `PyPI` для `Python`).
+5. `ChoiceChip` — виджет Material Design для выбора одного варианта из нескольких.
+6. `async` Помечает функцию как асинхронную, разрешает использовать `await`. `await` Приостанавливает функцию до завершения `Future`, не блокируя поток.
+7. `try`/`catch` Перехватывает ошибки в асинхронном коде.
+***
+## Ответы на вопросы:
+1. Объект-«обещание» вернуть значение типа `T` в будущем. Обычное значение доступно сразу, а `Future` — асинхронно, после завершения операции.
+2. Приостанавливает только текущую функцию до получения результата. Весь поток и `UI` не блокируются — приложение продолжает работать.
+3. 1-й раз — чтобы показать индикатор загрузки (`_isLoading = true`). 2-й раз — чтобы скрыть его и показать готовое фото или ошибку.
+4. Без скобок передается ссылка на функцию (вызовется при клике). Со скобками `_fetchPhoto()` функция запустится сразу при загрузке экрана.
+5. `network` грузит картинку из интернета по `URL`. asset берет локальный файл из папки проекта (работает без интернета).
+***
